@@ -48,8 +48,6 @@ export class CategoriasPage {
             .subscribe(response => { // em caso de sucesso terá a resposta na var response
               this.var_items = response; 
             },
-          error => {
-            console.log(error);
-          });
+          error => {});
 }
 }

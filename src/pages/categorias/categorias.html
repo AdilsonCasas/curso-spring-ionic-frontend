@@ -13,9 +13,9 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let var_item of var_items"> // o *ngFor faz repetir o componente para cada item numa lista de itens
+    <button ion-item *ngFor="let var_item of var_items"> <!-- o *ngFor faz repetir o componente para cada item numa lista de itens -->
       <ion-thumbnail item-start>
-        <img src="{{bucketUrl}}/cat{{var_item.id}}}.jpg">
+        <img src="{{bucketUrl}}/cat{{var_item.id}}.jpg">
       </ion-thumbnail>
       <h2>{{ var_item.nome }}</h2> <!-- estas abre-fecha de "{{ }}" é o que o Angular chama de "interpolação", isso vai interpolar o conteúdo do html com um dado vindo do servidor -->
     </button>
