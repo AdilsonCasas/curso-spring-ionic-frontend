@@ -49,5 +49,5 @@ export class CategoriasPage {
               this.var_items = response; 
             },
           error => {});
-}
+  }
 }
