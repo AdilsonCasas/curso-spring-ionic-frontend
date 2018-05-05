@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
 
 export class HomePage {
 
-  creds: CredenciaisDTO = {
+  attr_creds: CredenciaisDTO = {
     email: "",
     senha: ""
   };
@@ -32,8 +32,8 @@ export class HomePage {
   }
 
   login() {
-    console.log(this.creds);
-    this.var_auth.authenticate(this.creds) // teste com "pp890645@gmail.com" e senha 123
+    console.log(this.attr_creds);
+    this.var_auth.authenticate(this.attr_creds) // teste com "pp890645@gmail.com" e senha 123
             .subscribe(response => {
               console.log("antes response");
               this.var_auth.succesfulLogin(response.headers.get('Authorization'));
