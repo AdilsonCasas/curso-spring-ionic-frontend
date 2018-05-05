@@ -36,7 +36,7 @@ export class HomePage {
     this.var_auth.authenticate(this.creds) // teste com "pp890645@gmail.com" e senha 123
             .subscribe(response => {
               console.log("antes response");
-              console.log(response.headers.get('Authorization'));
+              this.var_auth.succesfulLogin(response.headers.get('Authorization'));
                 this.navCtrl.setRoot('CategoriasPage');
               },
               error => {});
