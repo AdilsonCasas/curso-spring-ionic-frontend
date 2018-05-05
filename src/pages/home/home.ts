@@ -18,26 +18,25 @@ export class HomePage {
   };
 
   constructor(
-              public navCtrl: NavController, 
-              public var_menuController: MenuController,
-              public var_auth: AuthService) {
+              public param_navCtrl: NavController, 
+              public param_menuController: MenuController,
+              public param_auth: AuthService) {
   }
 
   ionViewWillEnter() { // evento gerado quando "vai entrar" na página "HomePage"
-    this.var_menuController.swipeEnable(false);
+    this.param_menuController.swipeEnable(false);
   }
 
   ionViewDidLeave() { // evento gerado quando "saiu" da página "HomePage" pelo "click" no button Entrar.
-    this.var_menuController.swipeEnable(true);
+    this.param_menuController.swipeEnable(true);
   }
 
   login() {
     console.log(this.attr_creds);
-    this.var_auth.authenticate(this.attr_creds) // teste com "pp890645@gmail.com" e senha 123
+    this.param_auth.authenticate(this.attr_creds) // teste com "pp890645@gmail.com" e senha 123
             .subscribe(response => {
-              console.log("antes response");
-              this.var_auth.succesfulLogin(response.headers.get('Authorization'));
-                this.navCtrl.setRoot('CategoriasPage');
+              this.param_auth.succesfulLogin(response.headers.get('Authorization'));
+                this.param_navCtrl.setRoot('CategoriasPage');
               },
               error => {});
   }

@@ -23,9 +23,9 @@ export class CategoriasPage {
   attr_items: CategoriaDTO[];
 
   constructor(
-                public navCtrl: NavController, 
-                public navParams: NavParams,
-                public var_categoriaService: CategoriaService) {
+                public param_navCtrl: NavController, 
+                public param_navParams: NavParams,
+                public param_categoriaService: CategoriaService) {
   }
 
   /*
@@ -44,7 +44,7 @@ export class CategoriasPage {
   }
   */
   ionViewDidLoad() {
-    this.var_categoriaService.metodoService_findAllCategoria()
+    this.param_categoriaService.metodoService_findAllCategoria()
             .subscribe(response => { // em caso de sucesso terá a resposta na var response
               this.attr_items = response; 
             },

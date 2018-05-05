@@ -7,7 +7,8 @@ import { Observable } from "rxjs/Rx";
 
 @Injectable()
 export class CategoriaService {
-    constructor(public var_httpClient: HttpClient) {
+
+    constructor(public param_httpClient: HttpClient) {
     }
 
     // o ":" indica o tipo de retorno da requisição feito pelo método, só que esta é uma requisição assincrona, feita pelo AJAX,
@@ -17,6 +18,6 @@ export class CategoriaService {
         // igual chamada GET do Postman para pesquisar categorias no backend
         // a crase aqui no Ionic permite concatenar variáveis com string sem usar o operador '+', como no java
         // a var "API_CONFIG" foi definida no arq. "api.config.ts" na pasta "config"
-        return this.var_httpClient.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias`);
+        return this.param_httpClient.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias`);
     }
 }

@@ -19,13 +19,13 @@ export class ProfilePage {
   attr_email: string;
 
   constructor(
-              public navCtrl: NavController,
-              public navParams: NavParams,
-              public var_storage_keyService: Storage_keysService) {
+              public param_navCtrl: NavController,
+              public param_navParams: NavParams,
+              public param_storage_keyService: Storage_keysService) {
   }
 
   ionViewDidLoad() {
-    let var_localUser = this.var_storage_keyService.getLocalUser();
+    let var_localUser = this.param_storage_keyService.getLocalUser();
     if(var_localUser && var_localUser.email) { // se var_localUser não é null "e" possui o campo email (conteúdo)
       this.attr_email = var_localUser.email;
     }

@@ -9,16 +9,16 @@ import { JwtHelper } from 'angular2-jwt';
 @Injectable()
 export class AuthService {
 
-    var_jwtHelper: JwtHelper = new JwtHelper(); 
+    attr_jwtHelper: JwtHelper = new JwtHelper(); 
 
-    constructor(public var_http: HttpClient, public var_storage_keyService: Storage_keysService ) {
+    constructor(public param_http: HttpClient, public param_storage_keyService: Storage_keysService ) {
     }
 
-    authenticate(var_creds: CredenciaisDTO) {
+    authenticate(param_creds: CredenciaisDTO) {
 
-        return this.var_http.post( // este método vai enviar um POST" para o nosso backend com 3 argumentos
+        return this.param_http.post( // este método vai enviar um POST" para o nosso backend com 3 argumentos
                         `${API_CONFIG.baseUrl}/login`, // primeiro argumento: o endpoint
-                        var_creds, // segundo argumento: os valores de login+senha
+                        param_creds, // segundo argumento: os valores de login+senha
                         { // terceiro argumento:
                             observe: "response", // isto é para pegar o header da resposta do backend
                             responseType: "text" // um text e não um JSon, porque a resposta de um login no backend volta um "body" vazio
@@ -27,17 +27,17 @@ export class AuthService {
                         });
      }
 
-     succesfulLogin(authorizationValue : string) {
-         let var_token = authorizationValue.substring(7); // pega uma substring do token sem o "Bearer " do início
+     succesfulLogin(param_authorizationValue : string) {
+         let var_token = param_authorizationValue.substring(7); // pega uma substring do token sem o "Bearer " do início
          let var_usr: localUser = {
              token: var_token,
-             email: this.var_jwtHelper.decodeToken(var_token).sub // este ".sub" pega o email de dentro do token
+             email: this.attr_jwtHelper.decodeToken(var_token).sub // este ".sub" pega o email de dentro do token
          };
-         this.var_storage_keyService.setLocalUser(var_usr);
+         this.param_storage_keyService.setLocalUser(var_usr);
      }
 
      logout() {
-        this.var_storage_keyService.setLocalUser(null);
+        this.param_storage_keyService.setLocalUser(null);
     }
 
 }
