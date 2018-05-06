@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { API_CONFIG } from "../../config/api.config";
 import { CategoriaDTO } from "../../models/categoria.dto";
-//import { Observable } from "rxjs/Observable"; esta importação do "Observable" feita automaticamente pelo Visual Studio dá problema qdo precisa usar outras coisas deste pacote, então deve-se fazer o import abaixo, do Rx
 import { Observable } from "rxjs/Rx";
 
 @Injectable()

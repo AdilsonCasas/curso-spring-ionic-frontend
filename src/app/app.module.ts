@@ -11,6 +11,7 @@ import { CategoriaService } from '../services/domain/categoria.service';
 import { ErrorInterceptorProvider } from '../interceptors/error.interceptors';
 import { AuthService } from '../services/auth.service';
 import { Storage_keysService } from '../services/storage_keys.service';
+import { ClienteService } from '../services/domain/cliente.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { Storage_keysService } from '../services/storage_keys.service';
     CategoriaService,
     ErrorInterceptorProvider,
     AuthService,
-    Storage_keysService
+    Storage_keysService,
+    ClienteService
   ]
 
 })

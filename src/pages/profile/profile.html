@@ -18,5 +18,14 @@
 
 
 <ion-content padding>
-{{ attr_email }}
+  <ion-avatar>
+    <!--  Este "[src]" na imagem do comando abaixo faz um "bind" para o crontolador "profile.ts" pegando ou a img que estiver em 
+          "cliente?imageUrl" ou uma img "avatar" genéŕica.
+          Outra obs é o '?' em 'attr_ClienteDTO?.imageUrl': ele é o operador de navegação segura do Angular, significa que se a 
+          var "attr_ClienteDTO" não tiver valendo nada ele não vai dar erro na página.
+          Obs3: a classe 'circle' é pra apresentar o img 'bunitinha', no tamanho certo... (veja em profile.scss)-->
+    <img class="circle" [src]="attr_ClienteDTO?.imageUrl || 'assets/imgs/avatar-blank.png'">
+  </ion-avatar>
+  <h2 text-center>{{attr_ClienteDTO?.nome}}</h2>
+  <p text-center>{{attr_ClienteDTO?.email}}</p>
 </ion-content>

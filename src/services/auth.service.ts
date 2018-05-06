@@ -14,11 +14,11 @@ export class AuthService {
     constructor(public param_http: HttpClient, public param_storage_keyService: Storage_keysService ) {
     }
 
-    authenticate(param_creds: CredenciaisDTO) {
+    authenticate(param_CredenciaisDTO: CredenciaisDTO) {
 
         return this.param_http.post( // este método vai enviar um POST" para o nosso backend com 3 argumentos
                         `${API_CONFIG.baseUrl}/login`, // primeiro argumento: o endpoint
-                        param_creds, // segundo argumento: os valores de login+senha
+                        param_CredenciaisDTO, // segundo argumento: os valores de login+senha
                         { // terceiro argumento:
                             observe: "response", // isto é para pegar o header da resposta do backend
                             responseType: "text" // um text e não um JSon, porque a resposta de um login no backend volta um "body" vazio

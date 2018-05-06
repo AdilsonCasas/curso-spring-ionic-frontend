@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, MenuController } from 'ionic-angular';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
-//import { Subscriber } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -12,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 
 export class HomePage {
 
-  attr_creds: CredenciaisDTO = {
+  attr_CredenciaisDTO: CredenciaisDTO = {
     email: "",
     senha: ""
   };
@@ -32,8 +31,8 @@ export class HomePage {
   }
 
   login() {
-    console.log(this.attr_creds);
-    this.param_auth.authenticate(this.attr_creds) // teste com "pp890645@gmail.com" e senha 123
+    console.log(this.attr_CredenciaisDTO);
+    this.param_auth.authenticate(this.attr_CredenciaisDTO) // teste com "pp890645@gmail.com" e senha 123
             .subscribe(response => {
               this.param_auth.succesfulLogin(response.headers.get('Authorization'));
                 this.param_navCtrl.setRoot('CategoriasPage');

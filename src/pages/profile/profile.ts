@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage_keysService } from '../../services/storage_keys.service';
+import { ClienteDTO } from '../../models/cliente.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { API_CONFIG } from '../../config/api.config';
 
 /**
  * Generated class for the ProfilePage page.
@@ -16,19 +19,32 @@ import { Storage_keysService } from '../../services/storage_keys.service';
 })
 export class ProfilePage {
 
-  attr_email: string;
+  attr_ClienteDTO: ClienteDTO;
 
   constructor(
               public param_navCtrl: NavController,
               public param_navParams: NavParams,
-              public param_storage_keyService: Storage_keysService) {
+              public param_storage_keyService: Storage_keysService,
+              public param_clienteService: ClienteService) {
   }
 
   ionViewDidLoad() {
     let var_localUser = this.param_storage_keyService.getLocalUser();
     if(var_localUser && var_localUser.email) { // se var_localUser não é null "e" possui o campo email (conteúdo)
-      this.attr_email = var_localUser.email;
+      this.param_clienteService.findByEmal(var_localUser.email)
+            .subscribe(response => {
+              this.attr_ClienteDTO = response;
+              this.getImageIfExists();
+            },
+            error => {});
     }
   }
 
+  getImageIfExists() {
+    this.param_clienteService.getImageFromBucket(this.attr_ClienteDTO.id)
+          .subscribe( response => {
+            this.attr_ClienteDTO.imageUrl = `${API_CONFIG.bucketBaseUrl}/ClientProfile${this.attr_ClienteDTO.id}.jpg`;
+          },
+          error => {});
+  }
 }
