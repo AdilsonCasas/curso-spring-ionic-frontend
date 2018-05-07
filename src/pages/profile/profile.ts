@@ -21,8 +21,7 @@ export class ProfilePage {
 
   attr_ClienteDTO: ClienteDTO;
 
-  constructor(
-              public param_navCtrl: NavController,
+  constructor(public param_navCtrl: NavController,
               public param_navParams: NavParams,
               public param_storage_keyService: Storage_keysService,
               public param_clienteService: ClienteService) {
@@ -36,7 +35,16 @@ export class ProfilePage {
               this.attr_ClienteDTO = response;
               this.getImageIfExists();
             },
-            error => {});
+            error => { // neste momento este "error" já foi interceptado e tratado pelo 'ErrorInterceptor', aqui é a continuação do processo após a ação do intercept
+                    switch(error.status) {
+                      case 403:
+                        this.param_navCtrl.setRoot('HomePage');
+                      break;
+                    }
+            });
+    }
+    else { // este 'else' significa que deu algum problema na autenticação/busca do usr por email
+      this.param_navCtrl.setRoot('HomePage');
     }
   }
 
