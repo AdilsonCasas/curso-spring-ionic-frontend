@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
 import { Storage_keysService } from "../services/storage_keys.service";
+import { AlertController, Alert } from "ionic-angular";
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(public param_storage_keyService: Storage_keysService) {
+    constructor(public param_storage_keyService: Storage_keysService, public param_alertController: AlertController) {
     }
 
     // este 'interceptor' intercepta erros HTTP que retornem do backend, como um HTTP.FORBIDEN por exemplo
@@ -27,8 +28,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                     console.log(var_errorObj);
 
                     switch(var_errorObj.status) {
+                        case 401: // erro de Autenticação
+                            this.handle_erro_401();
+                        break;
+
                         case 403:
-                            this.meuHandle403();
+                            this.handle_erro_403();
+                        break;
+
+                        default:
+                            this.handle_erro_default(var_errorObj);
                         break;
                     }
 
@@ -38,9 +47,33 @@ export class ErrorInterceptor implements HttpInterceptor {
                 }) as any;
     }
 
-    meuHandle403() { // minha função para tratamento do erro HttpStatus_403
+    handle_erro_401() {
+        let var_alertController = this.param_alertController.create({
+            title: "Erro 401: falha de autenticação",
+            message: "email ou senha incorretos",
+            enableBackdropDismiss: false, // pra sair do Alert tem que apertar no botão do Alert e não em outro qualquer
+            buttons: [
+                {text: "OK"}
+            ]
+        });
+        var_alertController.present();
+    }
+
+    handle_erro_403() { // minha função para tratamento do erro HttpStatus_403
         // em um erro tipo FORBIDEN, algum possível 'localUser' que esteja armazenado no 'Stogare' deve ser gerado
         this.param_storage_keyService.setLocalUser(null);
+    }
+
+    handle_erro_default(var_errorObj) {
+        let var_alertController = this.param_alertController.create({
+            title: "Erro " + var_errorObj.status + ": " + var_errorObj.error,
+            message: var_errorObj.message,
+            enableBackdropDismiss: false, // pra sair do Alert tem que apertar no botão do Alert e não em outro qualquer
+            buttons: [
+                {text: "OK"}
+            ]
+        });
+        var_alertController.present();
     }
 }
 
