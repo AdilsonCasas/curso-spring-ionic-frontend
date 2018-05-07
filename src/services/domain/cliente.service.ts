@@ -14,13 +14,8 @@ export class ClienteService {
     }
 
     findByEmal(param_email: string) : Observable<ClienteDTO> {
-
-        let var_token = this.param_storage_keyService.getLocalUser().token;
-        let var_authHeader = new HttpHeaders({"Authorization": "Bearer " + var_token });
-
-	// a chamada do "postman" para um GET neste endpoint deve ser: 'localhost:8080/clientes/email?param_email=pp890645@gmail.com'
-    return this.param_http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?param_email=${param_email}`,
-                {"headers": var_authHeader});
+	    // a chamada do "postman" para um GET neste endpoint deve ser: 'localhost:8080/clientes/email?param_email=pp890645@gmail.com'
+        return this.param_http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?param_email=${param_email}`);
     }
 
     getImageFromBucket(param_id: string): Observable<any> {
