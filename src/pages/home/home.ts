@@ -16,8 +16,7 @@ export class HomePage {
     senha: ""
   };
 
-  constructor(
-              public param_navCtrl: NavController, 
+  constructor(public param_navCtrl: NavController, 
               public param_menuController: MenuController,
               public param_auth: AuthService) {
   }
@@ -37,7 +36,7 @@ export class HomePage {
                 this.param_navCtrl.setRoot('CategoriasPage');
               },
               error => {});
-}
+  }
 
   login() {
     console.log(this.attr_CredenciaisDTO);
@@ -47,6 +46,10 @@ export class HomePage {
                 this.param_navCtrl.setRoot('CategoriasPage');
               },
               error => {});
+  }
+
+  signup() {
+    this.param_navCtrl.push("SignupPage");
   }
 
 }
