@@ -27,6 +27,17 @@ export class AuthService {
                         });
      }
 
+     refreshToken() {
+
+        return this.param_http.post(
+                        `${API_CONFIG.baseUrl}/auth/refresh_token`,
+                        {},
+                        {
+                            observe: "response",
+                            responseType: "text"
+                        });
+     }
+
      succesfulLogin(param_authorizationValue : string) {
          let var_token = param_authorizationValue.substring(7); // pega uma substring do token sem o "Bearer " do início
          let var_usr: localUser = {

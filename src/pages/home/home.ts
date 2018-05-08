@@ -30,6 +30,15 @@ export class HomePage {
     this.param_menuController.swipeEnable(true);
   }
 
+  ionViewDidEnter() { // evento gerado quando "entrou" da página "HomePage" pelo "click" no button Entrar.
+    this.param_auth.refreshToken()
+            .subscribe(response => {
+              this.param_auth.succesfulLogin(response.headers.get('Authorization'));
+                this.param_navCtrl.setRoot('CategoriasPage');
+              },
+              error => {});
+}
+
   login() {
     console.log(this.attr_CredenciaisDTO);
     this.param_auth.authenticate(this.attr_CredenciaisDTO) // teste com "pp890645@gmail.com" e senha 123
