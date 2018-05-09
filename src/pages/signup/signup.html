@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="var_formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
+  <form [formGroup]="attr_formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
     <ion-item>
       <ion-label stacked>Nome*</ion-label>
       <ion-input formControlName="nome" type="text"></ion-input>
@@ -71,15 +71,13 @@
     <ion-item>
       <ion-label stacked>Estado*</ion-label>
       <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
-        <ion-option value="1">Minas Gerais</ion-option>
-        <ion-option value="2">São Paulo</ion-option>
-      </ion-select>
+        <ion-option *ngFor="let var_estado of attr_estados; first as f" [value]="var_estado.id" [selected]="f">{{var_estado.nome}}</ion-option>
+</ion-select>
     </ion-item>
     <ion-item>
       <ion-label stacked>Cidade*</ion-label>
       <ion-select formControlName="cidadeId">
-        <ion-option value="1">Uberlândia</ion-option>
-        <ion-option value="2">Campinas</ion-option>
+        <ion-option *ngFor="let var_cidade of attr_cidades" [value]="var_cidade.id">{{var_cidade.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <button ion-button block type="submit">Criar conta</button>
