@@ -22,4 +22,15 @@ export class ClienteService {
         let var_Url = `${API_CONFIG.bucketBaseUrl}/ClientProfile${param_id}.jpg`
                     return this.param_http.get(var_Url, {responseType : 'blob'});
     }
+
+    insert(param_obj : ClienteDTO) {
+        return this.param_http.post(
+            `${API_CONFIG.baseUrl}/clientes`, 
+            param_obj,
+            { 
+                observe: 'response', 
+                responseType: 'text'
+            }
+        ); 
+    }
 }

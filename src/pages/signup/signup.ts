@@ -5,6 +5,8 @@ import { EstadoService } from '../../services/domain/estado.service';
 import { CidadeService } from '../../services/domain/cidade.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 
 @IonicPage()
@@ -18,11 +20,13 @@ export class SignupPage {
   attr_estados: EstadoDTO[];
   attr_cidades: CidadeDTO[];
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
+  constructor(public param_navCtrl: NavController, 
+              public param_navParams: NavParams,
               public param_formBuilder: FormBuilder,
               public param_estadoService: EstadoService,
-              public param_cidadeService: CidadeService) {
+              public param_cidadeService: CidadeService,
+              public param_clienteService: ClienteService,
+              public param_alertCtrl: AlertController) {
     // isto abaixo instancia um formGroup com um objeto que terá os mesmos campos presentes lá no form. Este "formGroup" é do 
     // Angular e serve para fazer tratamentos e validações nos campos de um formulário.
     this.attr_formGroup = this.param_formBuilder.group({
@@ -34,7 +38,7 @@ export class SignupPage {
       //    ou seja, o campo nome não pode ser vazio e deve ter no mín 5 e no máx 120 carateres
       nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],  // preenchimento obrigatório, e com tam min=5, max=120
       email: ['joaquim@gmail.com', [Validators.required, Validators.email]],
-      tipo : ['1', [Validators.required]],
+      tipoCliente : ['1', [Validators.required]],
       cpfOuCnpj : ['06134596280', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
       senha : ['123', [Validators.required]],
       logradouro : ['Rua Via', [Validators.required]],
@@ -72,7 +76,29 @@ export class SignupPage {
   }
 
   signupUser() {
-    console.log("enviou form");
+console.log(this.attr_formGroup.value);
+    this.param_clienteService.insert(this.attr_formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {});
+  }
+
+  showInsertOk() {
+    let alert = this.param_alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.param_navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
